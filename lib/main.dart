@@ -1,17 +1,58 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const BallPage());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class BallPage extends StatelessWidget {
+  const BallPage({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Ask Me Anything'),
+          backgroundColor: Colors.blue[900],
+        ),
+        body: Ball(),
+        backgroundColor: Colors.blue,
+      ),
+    );
+  }
+}
+
+class Ball extends StatefulWidget {
+  const Ball({Key? key}) : super(key: key);
+
+  @override
+  State<Ball> createState() => _BallState(
+  );
+}
+
+class _BallState extends State<Ball> {
+  int ballNumber = 1;
+void handleClick() {
+  setState(() {
+    ballNumber = Random().nextInt(5) + 1;
+    print('clicked number $ballNumber');
+  });
+}
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        child: TextButton(
+            onPressed: () {
+              handleClick();
+            },
+            child: Image(
+              image: AssetImage('images/ball$ballNumber.png'),
+            )),
+      ),
     );
   }
 }
